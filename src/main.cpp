@@ -22,29 +22,6 @@
 #define DOCS_LOCATION_THUMBS	"thumbs"
 #define DOCS_IMAGE_SIZE		320
 
-double makeTimestamp(int tv_sec, int tv_usec) {
-	double result;
-
-	result  = ((double) tv_usec) / 1000000;
-	result += tv_sec;
-
-	return result;
-}
-
-double getTimestamp() {
-	struct timeval  my_timeval;
-	int ret;
-
-	ret = gettimeofday(&my_timeval, NULL);
-
-	if( ret < 0 ) {
-		perror("ERROR: ");
-		return -1;
-	}
-
-	return makeTimestamp(my_timeval.tv_sec, my_timeval.tv_usec);
-}
-
 int main() {
 	char path[128];
 	RUNNING = 1;
