@@ -1,10 +1,11 @@
-AC_INIT(src/main.c)
+AC_INIT([PiCamIf], 0.0.1, bastian@poettner.de)
+AC_CONFIG_SRCDIR(src/main.c)
 
-PACKAGE=PiCamIf
-VERSION=0.0.1
-
-AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE
 
 AC_PROG_CC
+AC_PROG_CXX
 
 AC_OUTPUT(Makefile src/Makefile)
+
