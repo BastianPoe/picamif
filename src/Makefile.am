@@ -1,8 +1,10 @@
 bin_PROGRAMS = PiCamIf
 
-PiCamIf_SOURCES = cam.h cam.c main.c http.h http.c strings.h strings.c list.h list.c
+nodist_noinst_HEADERS = config.h
 
-PiCamIf_LDFLAGS=-L/usr/local/lib
-PiCamIf_LDADD=-lmicrohttpd -lgphoto2
+AM_CFLAGS = $(GPHOTO_CFLAGS) -Wall
+#AM_CPPFLAGS = $(GPHOTO_CFLAGS) -Wall
+AM_LDFLAGS = $(GPHOTO_LIBS)
 
-AM_CFLAGS=-Wall -O2 $(INCLUDES) -g -I/usr/local/include
+PiCamIf_SOURCES = main.c cam.h cam.c list.h list.c
+

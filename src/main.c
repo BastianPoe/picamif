@@ -11,14 +11,11 @@
 #include <time.h>
 #include <fcntl.h>
 #include <regex.h>
-#include <microhttpd.h>
 #include <signal.h>
 #include <sys/time.h>
 
 #include "list.h"
-#include "strings.h"
 #include "cam.h"
-#include "http.h"
 #include "main.h"
 
 #define DOCS_LOCATION_IMAGES	"/root/ramdisk/images"
