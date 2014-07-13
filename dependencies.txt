@@ -1,0 +1,1 @@
+libvips-tools libgphoto2-2-dev gphoto2
