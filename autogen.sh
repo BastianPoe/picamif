@@ -1,5 +1,5 @@
 #! /bin/sh
 
-aclocal \
-    && automake --add-missing \
-    && autoconf
+# run autotools
+autoreconf -is
+
