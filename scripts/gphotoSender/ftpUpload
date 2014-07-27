@@ -10,6 +10,10 @@ fi
 # Create directory to store files that could or should not be sent
 mkdir -p /data/pictures
 
+# Send broadcast to notify the Timy Tool
+echo ${ARGUMENT} | socat - udp-datagram:255.255.255.255:6666,broadcast
+
+# Do FTP upload (if configured)
 if [ "${ftpEnabled}" == "on" ]; then
 	echo "Uploading ${ARGUMENT} to ftp://${ftpUser}:${ftpPassword}@${ftpServer}:${ftpPort}/"
 	curl -T ${ARGUMENT} ftp://${ftpServer}:${ftpPort}/ --user ${ftpUser}:${ftpPassword} \
