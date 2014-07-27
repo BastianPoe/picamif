@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source /etc/ftpUpload.cmd
+
+if [ "${ACTION}" != "download" ]; then
+	echo "Unknown action ${ACTION}, ignoring"
+	exit
+fi
+
+if [ "${ftpEnabled}" == "on" ]; then
+	echo "Uploading ${ARGUMENT} to ftp://${ftpUser}:${ftpPassword}@${ftpServer}:${ftpPort}/"
+	curl -T ${ARGUMENT} ftp://${ftpServer}:${ftpPort}/ --user ${ftpUser}:${ftpPassword}
+fi
+
+rm ${ARGUMENT}
