@@ -7,10 +7,13 @@ if [ "${ACTION}" != "download" ]; then
 	exit
 fi
 
+# Create directory to store files that could or should not be sent
+mkdir -p /data/pictures
+
 if [ "${ftpEnabled}" == "on" ]; then
 	echo "Uploading ${ARGUMENT} to ftp://${ftpUser}:${ftpPassword}@${ftpServer}:${ftpPort}/"
 	curl -T ${ARGUMENT} ftp://${ftpServer}:${ftpPort}/ --user ${ftpUser}:${ftpPassword} \
-	&& rm ${ARGUMENT}
+	&& rm ${ARGUMENT} || mv ${ARGUMENT} /data/pictures
 else
-	rm ${ARGUMENT}
+	mv ${ARGUMENT} /data/pictures || rm ${ARGUMENT}
 fi
