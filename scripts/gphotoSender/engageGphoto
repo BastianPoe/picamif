@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Start NTP (necessary for precise timestamps of the pictures)
+/etc/init.d/ntp start
+
 # Change into the directory where the script lives
 cd "`dirname $0`"
 
