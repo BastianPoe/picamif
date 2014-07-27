@@ -27,6 +27,9 @@ echo
 
 echo "Installing webinterface"
 ln -s /data/picamif/scripts/webInterface/index.php /var/www
+if [ -f /var/www/index.html ]; then
+	rm /var/www/index.html
+fi
 echo
 
 echo "Installing default config files"
