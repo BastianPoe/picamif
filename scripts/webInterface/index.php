@@ -118,7 +118,15 @@ elseif( !is_file("/etc/ftpUpload.conf") || !is_readable("/etc/ftpUpload.conf") |
 </tr>
 </table>
 </form>
- 
+
+<hr>
+<h2>Filesystem Overview</h2>
+<pre>
 <?php
+passthru("df -h | grep /data/pictures");
+passthru("df -h | grep /$ | head -n 1");
+?>
+</pre>
 
-
+</body>
+</html>
