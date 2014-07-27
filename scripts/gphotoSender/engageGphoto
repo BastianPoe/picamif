@@ -1,3 +1,10 @@
 #!/bin/bash
 
-gphoto2 --quiet --auto-detect --capture-tethered --filename %y-%m-%d--%H-%M-%S--%n.%C --hook-script ftpUpload
+# Change into the directory where the script lives
+cd "`dirname $0`"
+
+# And start gphoto
+# Restart in case of a crash (or a USB problem)
+while [ 1 ]; do
+	gphoto2 --quiet --auto-detect --capture-tethered --filename %y-%m-%d--%H-%M-%S--`hostname`--%n.%C --hook-script ftpUpload
+done
