@@ -7,6 +7,9 @@ import os
 SCRIPT="START /MIN ftpDisplay.cmd"
 #SCRIPT="START /B CMD /C CALL \"%ProgramFiles(x86)%\IrfanView\i_view32.exe\" \"%1%\" /one /fs"
 
+if not os.path.exists("incoming"):
+    os.makedirs("incoming")
+
 def onUpload(self, file):
     print("Uploaded "+str(file))
     cmd=SCRIPT+" "+file
