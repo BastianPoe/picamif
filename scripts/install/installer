@@ -4,12 +4,12 @@ echo "Creating target directory"
 mkdir -p /data/picamif
 echo
 
-echo "Checking out into target"
-git clone https://github.com/BastianPoe/picamif.git /data/picamif
+echo "Installing dependencies"
+sudo apt-get install gphoto2 libapache2-mod-php5 curl ntp ca-certificates git patch
 echo
 
-echo "Installing dependencies"
-sudo apt-get install gphoto2 libapache2-mod-php5 curl
+echo "Checking out into target"
+git clone https://github.com/BastianPoe/picamif.git /data/picamif
 echo
 
 echo "Linking init script"
@@ -17,7 +17,12 @@ ln -s /data/picamif/scripts/gphotoSender/init /etc/init.d/engageGphoto
 echo
 
 echo "Enabling init script"
+update-rc.d engageGphoto defaults
 update-rc.d engageGphoto enable
+echo
+
+echo "Enabling NTP"
+update-rc.d ntp enable
 echo
 
 echo "Installing webinterface"
@@ -25,9 +30,29 @@ ln -s /data/picamif/scripts/webInterface/index.php /var/www
 echo
 
 echo "Installing default config files"
-cp /data/picamif/scripts/installer/ftpUpload.cmd /etc
+cp /data/picamif/scripts/install/ftpUpload.cmd /etc
 chmod o+w /etc/ftpUpload.cmd
-cp /data/picamif/scripts/installer/ftpUpload.conf /etc
+cp /data/picamif/scripts/install/ftpUpload.conf /etc
 chmod o+w /etc/ftpUpload.conf
+echo
+
+echo "Making root volume writable"
+patch -p0 <<EOF
+--- /etc/init.d/voyage-util	2014-07-27 09:49:29.717202307 +0000
++++ /etc/init.d/voyage-util	2014-07-27 09:49:44.000000000 +0000
+@@ -105,9 +105,9 @@
+ 		alsa_unmute
+ 		run-parts /lib/voyage-utils
+ 
+-		echo -n "Remounting / as read-only ... "
+-		/usr/local/sbin/remountro
+-		echo "Done."		
++		#echo -n "Remounting / as read-only ... "
++		#/usr/local/sbin/remountro
++		#echo "Done."		
+ 		;;
+ 	'stop')
+ 		#if [ -f /etc/voyage.conf ] ; then
+EOF
 echo
 
