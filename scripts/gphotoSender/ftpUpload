@@ -9,7 +9,8 @@ fi
 
 if [ "${ftpEnabled}" == "on" ]; then
 	echo "Uploading ${ARGUMENT} to ftp://${ftpUser}:${ftpPassword}@${ftpServer}:${ftpPort}/"
-	curl -T ${ARGUMENT} ftp://${ftpServer}:${ftpPort}/ --user ${ftpUser}:${ftpPassword}
+	curl -T ${ARGUMENT} ftp://${ftpServer}:${ftpPort}/ --user ${ftpUser}:${ftpPassword} \
+	&& rm ${ARGUMENT}
+else
+	rm ${ARGUMENT}
 fi
-
-rm ${ARGUMENT}
