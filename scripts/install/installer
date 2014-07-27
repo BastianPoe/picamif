@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "Creating target directory"
+mkdir -p /data/picamif
+echo
+
+echo "Checking out into target"
+git clone https://github.com/BastianPoe/picamif.git /data/picamif
+echo
+
+echo "Installing dependencies"
+sudo apt-get install gphoto2 libapache2-mod-php5 curl
+echo
+
+echo "Linking init script"
+ln -s /data/picamif/scripts/gphotoSender/init /etc/init.d/engageGphoto
+echo
+
+echo "Enabling init script"
+update-rc.d engageGphoto enable
+echo
+
+echo "Installing webinterface"
+ln -s /data/picamif/scripts/webInterface/index.php /var/www
+echo
+
+echo "Installing default config files"
+cp /data/picamif/scripts/installer/ftpUpload.cmd /etc
+chmod o+w /etc/ftpUpload.cmd
+cp /data/picamif/scripts/installer/ftpUpload.conf /etc
+chmod o+w /etc/ftpUpload.conf
+echo
+
