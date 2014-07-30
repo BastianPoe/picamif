@@ -4,8 +4,9 @@ from pyftpdlib.servers import FTPServer
 import subprocess
 import os
 
-SCRIPT="START /MIN ftpDisplay.cmd"
+#SCRIPT="START /MIN ftpDisplay.cmd"
 #SCRIPT="START /B CMD /C CALL \"%ProgramFiles(x86)%\IrfanView\i_view32.exe\" \"%1%\" /one /fs"
+SCRIPT="./ftpDisplay.sh"
 
 if not os.path.exists("incoming"):
     os.makedirs("incoming")
