@@ -128,5 +128,13 @@ passthru("df -h | grep /$ | head -n 1");
 ?>
 </pre>
 
+<hr>
+<h2>List of Images</h2>
+<pre>
+<?php
+passthru("cd /data/pictures ; ls -alh");
+?>
+</pre>
+
 </body>
 </html>
