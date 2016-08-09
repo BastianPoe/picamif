@@ -5,7 +5,7 @@ mkdir -p /data/picamif
 echo
 
 echo "Installing dependencies"
-sudo apt-get install gphoto2 libapache2-mod-php5 curl ntp ca-certificates git patch
+sudo apt-get install apache2 gphoto2 libapache2-mod-php5 curl ntp ca-certificates git patch socat
 echo
 
 echo "Checking out into target"
@@ -30,6 +30,11 @@ ln -s /data/picamif/scripts/webInterface/index.php /var/www
 if [ -f /var/www/index.html ]; then
 	rm /var/www/index.html
 fi
+
+ln -s /data/picamif/scripts/webInterface/index.php /var/www/html
+if [ -f /var/www/html/index.html ]; then
+	rm /var/www/html/index.html
+fi
 echo
 
 echo "Installing default config files"
@@ -39,8 +44,10 @@ cp /data/picamif/scripts/install/ftpUpload.conf /etc
 chmod o+w /etc/ftpUpload.conf
 echo
 
-echo "Making root volume writable"
-patch -p0 <<EOF
+# Patch alix to make root writable
+if [ -f /etc/init.d/voyage-util ]; then
+	echo "Making root volume writable"
+	patch -p0 <<EOF
 --- /etc/init.d/voyage-util	2014-07-27 09:49:29.717202307 +0000
 +++ /etc/init.d/voyage-util	2014-07-27 09:49:44.000000000 +0000
 @@ -105,9 +105,9 @@
@@ -57,5 +64,6 @@ patch -p0 <<EOF
  	'stop')
  		#if [ -f /etc/voyage.conf ] ; then
 EOF
-echo
+	echo
+fi
 
